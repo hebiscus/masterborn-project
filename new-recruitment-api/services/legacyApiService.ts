@@ -7,7 +7,9 @@ export interface CandidateData {
   email: string;
 }
 
-export const createCandidateInLegacyApi = async (candidateData: CandidateData) => {
+export const createCandidateInLegacyApi = async (
+  candidateData: CandidateData,
+) => {
   try {
     const response = await fetch(LEGACY_API_URL, {
       method: "POST",
@@ -33,7 +35,11 @@ export const createCandidateInLegacyApi = async (candidateData: CandidateData) =
 
     if (response.ok) {
       const data = await response.json();
-      return { status: 201, message: "candidate created successfully", candidate: data };
+      return {
+        status: 201,
+        message: "candidate created successfully",
+        candidate: data,
+      };
     }
 
     return { status: 500, message: "unexpected error" };
