@@ -14,9 +14,19 @@ export class CandidatesController {
         try {
             const db = await setupDb();
 
-            const candidates = await db.all(`SELECT * FROM Candidate`);
+            const page = parseInt(req.query.page as string) || 1;
+            const limit = parseInt(req.query.limit as string) || 10;
+            const offset = (page - 1) * limit;
 
-            res.json({ candidates: candidates });
+            const candidates = await db.all(`SELECT * FROM Candidate LIMIT ? OFFSET ?`, [limit, offset]);
+
+            res.json({
+                candidates,
+                pagination: {
+                    page,
+                    limit,
+                },
+            });
         } catch (error) {
             console.error("error occured during rendering all candidates:", error);
             res.status(500).json({ error: "Internal Server Error" });
