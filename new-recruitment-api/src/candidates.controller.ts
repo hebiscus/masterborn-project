@@ -101,7 +101,6 @@ export class CandidatesController {
       const legacyApiResponse =
         await createCandidateInLegacyApi(legacyCandidateData);
 
-      // return res.status(201).json("Successfully created a new candidate!")
       return res
         .status(legacyApiResponse.status)
         .json({ message: legacyApiResponse.message });
