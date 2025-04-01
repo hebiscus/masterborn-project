@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { setupDb } from "./db";
+import { createCandidateInLegacyApi } from "../services/legacyApiService";
 
 export class CandidatesController {
     readonly router = Router();
@@ -64,7 +65,17 @@ export class CandidatesController {
             );
 
 
-            return res.status(201).json("Successfully created a new candidate!")
+            const legacyCandidateData = {
+                firstName: first_name,
+                lastName: last_name,
+                email: email,
+            };
+
+            const legacyApiResponse = await createCandidateInLegacyApi(legacyCandidateData);
+
+
+            // return res.status(201).json("Successfully created a new candidate!")
+            return res.status(legacyApiResponse.status).json({ message: legacyApiResponse.message });
         } catch (error) {
             console.error("Error wgile creating candidate:", error)
             return res.status(500).json({ error: "Internal server error" })
