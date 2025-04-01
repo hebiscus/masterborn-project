@@ -12,6 +12,7 @@ export class CandidatesController {
 
     async getAll(req: Request, res: Response) {
         try {
+            // disclaimer: am I setting up a new connection to the db all the time? Yes. I don't remember how to do it properly and google is not being helpful
             const db = await setupDb();
 
             const page = parseInt(req.query.page as string) || 1;
@@ -34,6 +35,7 @@ export class CandidatesController {
     }
 
     async create(req: Request, res: Response) {
+        // disclaimer: am I setting up a new connection to the db all the time? Yes. I don't remember how to do it properly and google is not being helpful
         const db = await setupDb();
 
         const {
