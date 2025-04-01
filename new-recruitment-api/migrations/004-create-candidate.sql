@@ -8,5 +8,7 @@ CREATE TABLE Candidate (
     recruiter_notes TEXT,
     recruitment_status TEXT CHECK(recruitment_status IN ('new', 'in_progress', 'accepted', 'rejected')) DEFAULT 'new',
     consent_date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    job_offer_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_offer_id) REFERENCES JobOffer(id) ON DELETE CASCADE
 );
